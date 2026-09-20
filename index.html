@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05080c">
+<title>Diag Auto 54</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#05080c;color:#fff;font-family:Arial,Helvetica,sans-serif}
+.app{max-width:430px;margin:auto;min-height:100vh;background:linear-gradient(180deg,#05080c,#09121b);padding-bottom:82px}
+header{padding:22px 20px 12px;text-align:center;position:sticky;top:0;background:rgba(5,8,12,.94);backdrop-filter:blur(12px);z-index:5}
+.logo{font-size:25px;font-weight:900;font-style:italic;letter-spacing:-1px}.logo span{color:#00a9ff}.tag{font-size:11px;color:#9aa7b2;margin-top:4px}
+.hero{margin:12px 16px;padding:24px 18px;border:1px solid #17334a;border-radius:22px;background:radial-gradient(circle at 80% 20%,#06365a 0,#08141e 45%,#071018 100%);box-shadow:0 15px 40px #0008}
+.hero h1{font-size:27px;margin:0 0 9px}.hero p{color:#b7c2cc;line-height:1.45;margin:0 0 18px}
+.btn{border:0;border-radius:13px;background:linear-gradient(135deg,#00aaff,#0078e8);color:white;font-weight:800;padding:15px 18px;width:100%;font-size:15px;cursor:pointer}
+.section{padding:0 16px;margin-top:20px}.section h2{font-size:18px;margin:0 0 12px}
+.cards{display:grid;gap:10px}.card{padding:15px;border:1px solid #1b3447;border-radius:16px;background:#0b151e;cursor:pointer}.card strong{display:block;font-size:16px}.price{float:right;color:#10aaff;font-weight:900}.card small{display:block;color:#8e9aa5;margin-top:5px;line-height:1.35}
+.form{padding:16px}.field{margin-bottom:13px}.field label{display:block;font-size:12px;color:#9aa7b2;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:13px;border-radius:11px;border:1px solid #274155;background:#09131c;color:#fff;font-size:14px}.field textarea{min-height:80px;resize:vertical}
+.step{display:none}.step.active{display:block}.progress{height:5px;background:#14222d;border-radius:9px;margin:6px 16px 18px}.progress i{display:block;height:100%;width:25%;background:#00aaff;border-radius:9px}
+.back{background:none;border:0;color:#8fcfff;padding:10px 0;font-weight:700;cursor:pointer}.summary{padding:15px;border:1px solid #1d3b51;border-radius:15px;background:#09151f;margin-bottom:15px;line-height:1.7}.ok{font-size:52px;text-align:center;color:#16d98a}.success{text-align:center;padding:25px 16px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:70px;background:#071018eF;border-top:1px solid #1b3447;display:flex;justify-content:space-around;align-items:center;z-index:10;backdrop-filter:blur(14px)}nav button{background:none;border:0;color:#7f8b96;font-size:11px}nav button b{display:block;font-size:20px;margin-bottom:3px}nav button.active{color:#00aaff}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">DIAG AUTO <span>54</span></div><div class="tag">DIAGNOSTIC ÉLECTRONIQUE AUTOMOBILE</div></header>
+
+<div id="home" class="screen">
+<section class="hero"><h1>Un voyant ?<br>Un doute ?</h1><p>Diagnostic électronique automobile à domicile en Meurthe-et-Moselle.</p><button class="btn" onclick="start()">RÉSERVER MON DIAGNOSTIC</button></section>
+<section class="section"><h2>Nos services</h2><div class="cards">
+<div class="card" onclick="choose(0)"><span class="price">25 €</span><strong>🔍 Diagnostic électronique</strong><small>Lecture et effacement des défauts.</small></div>
+<div class="card" onclick="choose(1)"><span class="price">35 €</span><strong>🔧 Diagnostic + effacement</strong><small>Lecture, explications et effacement.</small></div>
+<div class="card" onclick="choose(2)"><span class="price">49 €</span><strong>🚘 Diagnostic avant achat</strong><small>Contrôle du véhicule avant achat.</small></div>
+<div class="card" onclick="choose(3)"><span class="price">69 €</span><strong>⚙️ Diagnostic approfondi</strong><small>Analyse complète et conseils.</small></div>
+</div></section>
+<section class="section"><h2>Pourquoi nous ?</h2><div class="cards"><div class="card"><strong>🏠 À domicile</strong><small>Intervention pratique directement chez vous.</small></div><div class="card"><strong>⚡ Rapide & clair</strong><small>Un diagnostic compréhensible, sans jargon inutile.</small></div></div></section>
+</div>
+
+<div id="booking" class="screen hidden">
+<div class="progress"><i id="prog"></i></div>
+<div id="s1" class="step active"><section class="form"><button class="back" onclick="showHome()">← Retour</button><h2>Votre véhicule</h2>
+<div class="field"><label>Immatriculation</label><input id="plate" placeholder="Ex. AB-123-CD" maxlength="12"></div>
+<div class="field"><label>Marque</label><input id="brand" placeholder="Ex. Peugeot"></div>
+<div class="field"><label>Modèle</label><input id="model" placeholder="Ex. 3008"></div>
+<div class="field"><label>Année</label><input id="year" type="number" placeholder="Ex. 2018"></div>
+<div class="field"><label>Motorisation</label><input id="engine" placeholder="Ex. 1.6 HDi"></div>
+<div class="field"><label>Kilométrage</label><input id="km" type="number" placeholder="Ex. 125000"></div>
+<button class="btn" onclick="next(2)">CONTINUER →</button></section></div>
+
+<div id="s2" class="step"><section class="form"><button class="back" onclick="next(1)">← Retour</button><h2>Choix du diagnostic</h2><div id="serviceList" class="cards"></div><button class="btn" onclick="next(3)">CONTINUER →</button></section></div>
+
+<div id="s3" class="step"><section class="form"><button class="back" onclick="next(2)">← Retour</button><h2>Vos coordonnées</h2>
+<div class="field"><label>Nom / prénom</label><input id="name" placeholder="Votre nom"></div>
+<div class="field"><label>Téléphone</label><input id="phone" type="tel" placeholder="07 XX XX XX XX"></div>
+<div class="field"><label>Ville</label><input id="city" placeholder="Ex. Nancy"></div>
+<div class="field"><label>Date souhaitée</label><input id="date" type="date"></div>
+<div class="field"><label>Heure souhaitée</label><input id="time" type="time"></div>
+<div class="field"><label>Symptômes / voyant (facultatif)</label><textarea id="symptoms" placeholder="Ex. voyant moteur allumé..."></textarea></div>
+<div class="field"><label>VIN (facultatif)</label><input id="vin" placeholder="17 caractères"></div>
+<button class="btn" onclick="next(4)">VÉRIFIER MA DEMANDE →</button></section></div>
+
+<div id="s4" class="step"><section class="form"><button class="back" onclick="next(3)">← Modifier</button><h2>Récapitulatif</h2><div class="summary" id="summary"></div>
+<button class="btn" onclick="confirmBooking()">📲 ENVOYER PAR WHATSAPP</button>
+<p style="font-size:11px;color:#7f8b96;text-align:center;margin-top:10px">WhatsApp s'ouvrira avec votre demande déjà préparée.</p></section></div>
+
+<div id="done" class="step"><div class="success"><div class="ok">✓</div><h2>Votre demande est prête !</h2><p style="color:#aab6c0">WhatsApp va s'ouvrir pour transmettre directement votre demande à Diag Auto 54.</p><div class="summary">📞 <b>07 59 75 00 84</b><br>📍 Meurthe-et-Moselle (54)</div><button class="btn" onclick="showHome()">RETOUR À L'ACCUEIL</button></div></div>
+</div>
+
+<nav><button class="active" onclick="showHome()"><b>⌂</b>Accueil</button><button onclick="start()"><b>＋</b>Réserver</button><button onclick="alert('Historique : fonction à connecter à une base de données dans la prochaine version.')"><b>▣</b>Rapports</button><button onclick="alert('Diag Auto 54\\n07 59 75 00 84')"><b>☎</b>Contact</button></nav>
+</div>
+<script>
+const services=[
+["Diagnostic électronique",25,"Lecture et effacement des défauts."],
+["Diagnostic + effacement",35,"Lecture, explications et effacement."],
+["Diagnostic avant achat",49,"Contrôle du véhicule avant achat."],
+["Diagnostic approfondi",69,"Analyse complète et conseils."]
+];
+let selected=0;
+function start(){document.getElementById("home").classList.add("hidden");document.getElementById("booking").classList.remove("hidden");next(1)}
+function showHome(){document.getElementById("booking").classList.add("hidden");document.getElementById("home").classList.remove("hidden")}
+function choose(i){selected=i;start();next(2)}
+function next(n){
+document.querySelectorAll(".step").forEach(x=>x.classList.remove("active"));
+let el=document.getElementById(n===1?"s1":n===2?"s2":n===3?"s3":n===4?"s4":"done"); if(el)el.classList.add("active");
+document.getElementById("prog").style.width=(n*25)+"%";
+if(n===2)renderServices(); if(n===4)renderSummary();
+}
+function renderServices(){document.getElementById("serviceList").innerHTML=services.map((s,i)=>`<div class="card" onclick="selected=${i};renderServices()"><span class="price">${s[1]} €</span><strong>${i===selected?"◉":"○"} ${s[0]}</strong><small>${s[2]}</small></div>`).join("")}
+function renderSummary(){
+const v=(id)=>document.getElementById(id).value||"—";
+document.getElementById("summary").innerHTML=`<b>Service :</b> ${services[selected][0]} — ${services[selected][1]} €<br><b>Immat. :</b> ${v("plate")}<br><b>Véhicule :</b> ${v("brand")} ${v("model")} (${v("year")})<br><b>Moteur :</b> ${v("engine")}<br><b>Kilométrage :</b> ${v("km")} km<br><b>Client :</b> ${v("name")} — ${v("phone")}<br><b>Ville :</b> ${v("city")}<br><b>Souhait :</b> ${v("date")} à ${v("time")}<br><b>Symptômes :</b> ${v("symptoms")}<br><b>VIN :</b> ${v("vin")}`;
+}
+function confirmBooking(){
+const v=(id)=>document.getElementById(id).value||"—";
+const data={service:services[selected][0],price:services[selected][1],plate:v("plate"),brand:v("brand"),model:v("model"),year:v("year"),engine:v("engine"),km:v("km"),name:v("name"),phone:v("phone"),city:v("city"),date:v("date"),time:v("time"),symptoms:v("symptoms"),vin:v("vin"),created:new Date().toISOString()};
+localStorage.setItem("diagauto54_last_booking",JSON.stringify(data));
+const msg =
+`🚗 DIAG AUTO 54 — DEMANDE DE RDV
+
+🔧 Service : ${data.service}
+💶 Prix : ${data.price} €
+
+🚘 VÉHICULE
+Immatriculation : ${data.plate}
+Marque : ${data.brand}
+Modèle : ${data.model}
+Année : ${data.year}
+Motorisation : ${data.engine}
+Kilométrage : ${data.km}
+VIN : ${data.vin}
+
+👤 CLIENT
+Nom : ${data.name}
+Téléphone : ${data.phone}
+Ville : ${data.city}
+
+📅 RDV souhaité : ${data.date} à ${data.time}
+⚠️ Symptômes : ${data.symptoms}`;
+
+window.location.href="https://wa.me/33759750084?text="+encodeURIComponent(msg);
+}
+</script>
+</body>
+</html>
