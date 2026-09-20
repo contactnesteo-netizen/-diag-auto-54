@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07101f">
+<title>DIAG AUTO 54</title>
+<style>
+:root{--bg:#07101f;--panel:#101d31;--panel2:#162842;--blue:#4da3ff;--green:#49d17d;--red:#d85d6b;--text:#f4f7fb;--muted:#9fb0c7;--line:#29415f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:900px;margin:auto;padding:22px 16px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}
+.brand{font-size:24px;font-weight:900}.brand small{display:block;color:var(--muted);font-size:14px;margin-top:3px;font-weight:500}
+button,.btn{border:1px solid #e6eef8;background:#14243a;color:#eaf2fb;border-radius:16px;padding:13px 17px;font-weight:800;font-size:15px;cursor:pointer}
+button.primary,.primary{background:var(--blue);color:#06101e;border-color:var(--blue)}button.green{background:var(--green);color:#06140c;border-color:var(--green)}button.red{background:#3a1820;border-color:#75404a;color:#ffdbe0}
+h1{font-size:40px;line-height:1.05;margin:10px 0 22px}.hero{background:linear-gradient(135deg,#102441,#0b1729);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}.card h3{margin:0 0 8px}.muted{color:var(--muted)}.price{font-size:25px;font-weight:900;color:#fff}
+label{display:block;font-weight:750;margin:13px 0 7px}input,select,textarea{width:100%;border:1px solid #36516f;background:#0b1728;color:#fff;border-radius:13px;padding:13px;font-size:16px;outline:none}textarea{min-height:100px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.hidden{display:none!important}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#203652;color:#cfe1f7;font-size:12px;font-weight:800}.pill.green{background:#163d2b;color:#9af0b8}.pill.yellow{background:#4b3b12;color:#ffe08a}.pill.red{background:#451d25;color:#ffb5be}
+.notice{background:#162842;border-radius:18px;padding:15px;color:#c9d8eb;margin:14px 0}.section{margin-top:28px}.list{display:grid;gap:12px}.request{background:#0f1c2e;border:1px solid #263d59;border-radius:19px;padding:16px}.request .head{display:flex;justify-content:space-between;gap:10px;align-items:start}.request h3{margin:0 0 6px}.request p{margin:5px 0;color:#afbed0}.stat{font-size:29px;font-weight:900}.small{font-size:13px}.report{background:#fff;color:#161b22;border-radius:20px;padding:25px}.report table{width:100%;border-collapse:collapse}.report td{padding:9px 6px;border-bottom:1px solid #ddd;vertical-align:top}.report td:first-child{font-weight:800;width:35%}
+.footer{text-align:center;color:#71859e;margin-top:35px;font-size:13px}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px}.tabs button{white-space:nowrap}
+@media(max-width:650px){.grid,.grid3{grid-template-columns:1fr}h1{font-size:34px}.top{align-items:flex-start}.actions button{flex:1}.request .head{display:block}.request .head .pill{margin-top:8px}}
+@media print{body{background:#fff}.no-print{display:none!important}.wrap{max-width:none;padding:0}.report{box-shadow:none;border:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand">🚗 DIAG AUTO 54<small>Diagnostic électronique automobile</small></div>
+  <button onclick="showAdmin()">⚙️ Admin</button>
+</header>
+
+<section id="home">
+  <div class="hero">
+    <h1>Diagnostic auto<br>à domicile</h1>
+    <p class="muted">Réservez votre diagnostic électronique en quelques secondes.</p>
+    <div class="actions"><button class="primary" onclick="scrollToId('booking')">📅 Prendre rendez-vous</button><button onclick="callMe()">📞 07 59 75 00 84</button></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>🔧 Diagnostic électronique</h3><div class="price">25 €</div><p class="muted">Lecture des défauts électroniques.</p></div>
+    <div class="card"><h3>🧹 Diagnostic + effacement</h3><div class="price">35 €</div><p class="muted">Lecture et effacement des défauts compatibles.</p></div>
+    <div class="card"><h3>🚘 Diagnostic avant achat</h3><div class="price">49 €</div><p class="muted">Contrôle électronique avant achat d'un véhicule.</p></div>
+    <div class="card"><h3>🧪 Diagnostic approfondi</h3><div class="price">69 €</div><p class="muted">Contrôle plus complet avec compte-rendu.</p></div>
+  </div>
+
+  <section id="booking" class="section">
+    <div class="card">
+      <h2>📅 Demande de rendez-vous</h2>
+      <form id="bookingForm">
+        <div class="grid">
+          <div><label>Nom / prénom *</label><input id="name" required></div>
+          <div><label>Téléphone *</label><input id="phone" type="tel" required></div>
+          <div><label>Ville *</label><input id="city" required></div>
+          <div><label>Immatriculation *</label><input id="plate" required style="text-transform:uppercase"></div>
+          <div><label>Marque *</label><input id="make" required></div>
+          <div><label>Modèle *</label><input id="model" required></div>
+          <div><label>Année</label><input id="year" inputmode="numeric"></div>
+          <div><label>Moteur</label><input id="engine" placeholder="ex. 1.6 HDi"></div>
+          <div><label>Kilométrage</label><input id="mileage" inputmode="numeric"></div>
+          <div><label>VIN</label><input id="vin"></div>
+          <div><label>Date *</label><input id="date" type="date" required></div>
+          <div><label>Heure *</label><input id="time" type="time" required></div>
+        </div>
+        <label>Service *</label>
+        <select id="service" required>
+          <option value="">Choisir…</option><option>Diagnostic électronique — 25 €</option><option>Diagnostic + effacement — 35 €</option><option>Diagnostic avant achat — 49 €</option><option>Diagnostic approfondi — 69 €</option>
+        </select>
+        <label>Symptômes / voyant / demande</label><textarea id="symptoms" placeholder="Ex. voyant moteur, perte de puissance…"></textarea>
+        <div class="actions"><button class="primary" type="submit">✅ Envoyer ma demande</button></div>
+      </form>
+      <div id="bookingOk" class="notice hidden"></div>
+    </div>
+  </section>
+</section>
+
+<section id="admin" class="hidden">
+  <div class="hero">
+    <div class="actions"><button onclick="showHome()">← Retour</button><button onclick="logout()">🔒 Verrouiller</button></div>
+    <h1>Admin</h1>
+    <p class="muted">Gestion locale des demandes et rapports.</p>
+  </div>
+  <div class="notice">⚠️ Cette V5 fonctionne sans serveur : les données sont enregistrées dans ce navigateur. Le code admin est une protection locale, pas une sécurité serveur.</div>
+  <div class="grid3">
+    <div class="card"><div class="muted">Demandes</div><div id="statAll" class="stat">0</div></div>
+    <div class="card"><div class="muted">Nouvelles</div><div id="statNew" class="stat">0</div></div>
+    <div class="card"><div class="muted">Terminées</div><div id="statDone" class="stat">0</div></div>
+  </div>
+  <div class="section">
+    <div class="tabs"><button onclick="setFilter('all')">Toutes</button><button onclick="setFilter('new')">Nouvelles</button><button onclick="setFilter('confirmed')">Confirmées</button><button onclick="setFilter('done')">Terminées</button></div>
+    <div id="requests" class="list"></div>
+  </div>
+  <div class="section card">
+    <h2>💾 Sauvegarde</h2>
+    <p class="muted">Exporte les demandes de ce téléphone pour les sauvegarder ou les transférer.</p>
+    <div class="actions"><button onclick="exportData()">⬇️ Exporter</button><button onclick="document.getElementById('importFile').click()">⬆️ Importer</button><input id="importFile" type="file" accept=".json" class="hidden" onchange="importData(event)"></div>
+  </div>
+</section>
+
+<section id="reportView" class="hidden">
+  <div class="no-print actions"><button onclick="showAdmin()">← Retour admin</button><button class="primary" onclick="window.print()">🖨️ Imprimer / PDF</button><button class="green" onclick="sendReportWhatsApp()">📲 WhatsApp</button></div>
+  <div id="report" class="report"></div>
+</section>
+
+<div class="footer">DIAG AUTO 54 · 07 59 75 00 84</div>
+</div>
+
+<script>
+const ADMIN_PIN="5454", KEY="diagAuto54Requests";
+let filter="all", currentReportId=null;
+
+function getData(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+function saveData(a){localStorage.setItem(KEY,JSON.stringify(a))}
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function callMe(){location.href="tel:+33759750084"}
+function showHome(){document.getElementById("admin").classList.add("hidden");document.getElementById("reportView").classList.add("hidden");document.getElementById("home").classList.remove("hidden")}
+function showAdmin(){if(sessionStorage.getItem("diagAdmin")==="1"){openAdmin();return}const pin=prompt("Code admin :");if(pin===ADMIN_PIN){sessionStorage.setItem("diagAdmin","1");openAdmin()}else if(pin!==null)alert("Code incorrect.")}
+function openAdmin(){document.getElementById("home").classList.add("hidden");document.getElementById("reportView").classList.add("hidden");document.getElementById("admin").classList.remove("hidden");render()}
+function logout(){sessionStorage.removeItem("diagAdmin");showHome()}
+function setFilter(f){filter=f;render()}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function render(){
+ const a=getData(); document.getElementById("statAll").textContent=a.length;document.getElementById("statNew").textContent=a.filter(x=>x.status==="new").length;document.getElementById("statDone").textContent=a.filter(x=>x.status==="done").length;
+ const show=a.filter(x=>filter==="all"||(filter==="new"&&x.status==="new")||(filter==="confirmed"&&x.status==="confirmed")||(filter==="done"&&x.status==="done")).sort((x,y)=>y.createdAt-x.createdAt);
+ const box=document.getElementById("requests");
+ if(!show.length){box.innerHTML='<div class="card">Aucune demande.</div>';return}
+ box.innerHTML=show.map(x=>`<div class="request">
+ <div class="head"><div><h3>${escapeHtml(x.name)} — ${escapeHtml(x.make)} ${escapeHtml(x.model)}</h3><p>🚘 ${escapeHtml(x.plate)} · ${escapeHtml(x.year||"")} · ${escapeHtml(x.engine||"")}</p><p>📅 ${escapeHtml(x.date)} à ${escapeHtml(x.time)} · 🔧 ${escapeHtml(x.service)}</p><p>📞 ${escapeHtml(x.phone)} · 📍 ${escapeHtml(x.city)}</p><p>⚠️ ${escapeHtml(x.symptoms||"Aucun symptôme indiqué")}</p></div><span class="pill ${x.status==="done"?"green":x.status==="confirmed"?"yellow":""}">${x.status==="new"?"Nouveau":x.status==="confirmed"?"Confirmé":"Terminé"}</span></div>
+ <div class="actions"><button class="green" onclick="confirmReq('${x.id}')">✅ Confirmer</button><button onclick="openReport('${x.id}')">🧰 Rapport</button><button onclick="whatsReq('${x.id}')">📲 WhatsApp</button><button class="red" onclick="deleteReq('${x.id}')">🗑️ Suppr.</button></div></div>`).join("")
+}
+function confirmReq(id){const a=getData();const x=a.find(r=>r.id===id);if(x){x.status="confirmed";saveData(a);render()}}
+function deleteReq(id){if(!confirm("Supprimer cette demande ?"))return;saveData(getData().filter(x=>x.id!==id));render()}
+function whatsReq(id){const x=getData().find(r=>r.id===id);if(!x)return;const msg=`🚗 DIAG AUTO 54 — RDV\n\nBonjour ${x.name}, votre demande est enregistrée.\nVéhicule : ${x.make} ${x.model} ${x.year||""}\nImmatriculation : ${x.plate}\nDate : ${x.date} à ${x.time}\nService : ${x.service}\n\nDIAG AUTO 54 — 07 59 75 00 84`;window.open("https://wa.me/"+x.phone.replace(/\D/g,"")+"?text="+encodeURIComponent(msg),"_blank")}
+function openReport(id){currentReportId=id;const x=getData().find(r=>r.id===id);if(!x)return;document.getElementById("admin").classList.add("hidden");document.getElementById("home").classList.add("hidden");document.getElementById("reportView").classList.remove("hidden");
+document.getElementById("report").innerHTML=`<h1>🚗 DIAG AUTO 54</h1><h2>RAPPORT DE DIAGNOSTIC</h2><table>
+<tr><td>Client</td><td>${escapeHtml(x.name)}<br>${escapeHtml(x.phone)} · ${escapeHtml(x.city)}</td></tr>
+<tr><td>Véhicule</td><td>${escapeHtml(x.make)} ${escapeHtml(x.model)} ${escapeHtml(x.year||"")}<br>Immatr. : ${escapeHtml(x.plate)}<br>VIN : ${escapeHtml(x.vin||"—")}<br>Moteur : ${escapeHtml(x.engine||"—")} · ${escapeHtml(x.mileage||"—")} km</td></tr>
+<tr><td>Service</td><td>${escapeHtml(x.service)}</td></tr>
+<tr><td>Symptômes</td><td><textarea id="rSymptoms">${escapeHtml(x.symptoms||"")}</textarea></td></tr>
+<tr><td>Codes OBD</td><td><textarea id="rCodes" placeholder="Ex. P2463, P0401…"></textarea></td></tr>
+<tr><td>Observations</td><td><textarea id="rObs" placeholder="Observations du diagnostic…"></textarea></td></tr>
+<tr><td>Recommandations</td><td><textarea id="rRec" placeholder="Ex. contrôle garage, nettoyage, réparation…"></textarea></td></tr>
+</table><p><strong>DIAG AUTO 54</strong><br>07 59 75 00 84</p>
+<div class="no-print actions"><button class="primary" onclick="saveReport()">💾 Enregistrer le rapport</button></div>`}
+function saveReport(){const a=getData(),x=a.find(r=>r.id===currentReportId);if(!x)return;x.report={codes:document.getElementById("rCodes").value,obs:document.getElementById("rObs").value,rec:document.getElementById("rRec").value};x.status="done";saveData(a);document.getElementById("rCodes").disabled=true;document.getElementById("rObs").disabled=true;document.getElementById("rRec").disabled=true;alert("Rapport enregistré.");}
+function sendReportWhatsApp(){const x=getData().find(r=>r.id===currentReportId);if(!x)return;const codes=document.getElementById("rCodes")?.value||x.report?.codes||"—",obs=document.getElementById("rObs")?.value||x.report?.obs||"—",rec=document.getElementById("rRec")?.value||x.report?.rec||"—";const msg=`🚗 DIAG AUTO 54 — RAPPORT DIAGNOSTIC\n\nClient : ${x.name}\nVéhicule : ${x.make} ${x.model} ${x.year||""}\nImmatriculation : ${x.plate}\n\n🔧 CODES OBD\n${codes}\n\n📝 OBSERVATIONS\n${obs}\n\n✅ RECOMMANDATIONS\n${rec}\n\nDIAG AUTO 54 — 07 59 75 00 84`;window.open("https://wa.me/"+x.phone.replace(/\D/g,"")+"?text="+encodeURIComponent(msg),"_blank")}
+function exportData(){const blob=new Blob([JSON.stringify(getData(),null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="diag-auto-54-sauvegarde.json";a.click();URL.revokeObjectURL(a.href)}
+function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const incoming=JSON.parse(r.result);if(!Array.isArray(incoming))throw 0;saveData(incoming);render();alert("Sauvegarde importée.");}catch(_){alert("Fichier invalide.")}};r.readAsText(f)}
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const form=e.currentTarget;
+  const val=id=>form.querySelector("#"+id).value.trim();
+  const x={
+    id:String(Date.now()),
+    createdAt:Date.now(),
+    status:"new",
+    name:val("name"),
+    phone:val("phone"),
+    city:val("city"),
+    plate:val("plate").toUpperCase(),
+    make:val("make"),
+    model:val("model"),
+    year:val("year"),
+    engine:val("engine"),
+    mileage:val("mileage"),
+    vin:val("vin").toUpperCase(),
+    date:form.querySelector("#date").value,
+    time:form.querySelector("#time").value,
+    service:form.querySelector("#service").value,
+    symptoms:val("symptoms")
+  };
+  if(!x.name||!x.phone||!x.city||!x.plate||!x.make||!x.model||!x.date||!x.time||!x.service){
+    alert("Merci de remplir tous les champs obligatoires.");
+    return;
+  }
+  const a=getData();
+  a.push(x);
+  saveData(a);
+  const msg=`🚗 DIAG AUTO 54 — NOUVELLE DEMANDE
+
+Client : ${x.name}
+Tél : ${x.phone}
+Ville : ${x.city}
+Véhicule : ${x.make} ${x.model} ${x.year}
+Immatriculation : ${x.plate}
+Date : ${x.date} à ${x.time}
+Service : ${x.service}
+Symptômes : ${x.symptoms||"—"}`;
+
+  const ok=document.getElementById("bookingOk");
+  ok.classList.remove("hidden");
+  ok.innerHTML=`<strong>✅ Demande enregistrée !</strong><br><br>
+  <span class="muted">Pour que DIAG AUTO 54 reçoive aussi la demande immédiatement :</span><br><br>
+  <button type="button" class="green" id="sendBookingWhatsApp">📲 Envoyer sur WhatsApp</button>`;
+  document.getElementById("sendBookingWhatsApp").addEventListener("click",function(){
+    window.open("https://wa.me/33759750084?text="+encodeURIComponent(msg),"_blank");
+  });
+  form.reset();
+  ok.scrollIntoView({behavior:"smooth",block:"center"});
+});
+</script>
+</body>
+</html>
